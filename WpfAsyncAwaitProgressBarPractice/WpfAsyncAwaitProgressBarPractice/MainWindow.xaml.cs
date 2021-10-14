@@ -204,7 +204,7 @@
         {
             // サブウィンドウ（プログレスバーが置いてあります）を表示します
             var subWindow = new ProgressBarWindowView();
-            subWindow.textBlock1.Text = "プログレスバーが動くようになりました";
+            subWindow.textBlock1.Text = "並行して処理しています";
 
             // サブウィンドウを表示します
             subWindow.Show();
