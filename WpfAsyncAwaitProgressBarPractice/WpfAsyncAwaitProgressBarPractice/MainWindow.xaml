@@ -7,9 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Width="400" Height="300">
 
-    <Grid Margin="24,16,24,16">
-        <Button Content="同期処理１（うまく行かない例）" Width="270" Height="30" Click="BadSyncButton_Click"/>
+    <StackPanel Margin="24,16,24,16" VerticalAlignment="Center">
+        <Button Content="処理１ 同期（うまく行かない例）" Width="270" Height="30" HorizontalContentAlignment="Left"
+                Click="BadSyncButton_Click"/>
+        <Button Content="処理２ 同期（うまく行かない例）" Width="270" Height="30" HorizontalContentAlignment="Left"
+                Click="Sync2Button_Click"/>
 
-    </Grid>
+    </StackPanel>
     
 </Window>
