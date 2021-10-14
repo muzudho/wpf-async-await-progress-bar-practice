@@ -48,7 +48,7 @@
                 // 1件 0.5 秒かかるとします
                 Thread.Sleep(500);
 
-                var percentage = i * 100 / kTotal;
+                var percentage = (i + 1) * 100 / kTotal;
                 progressBar.Value = percentage;
             }
         }
@@ -209,10 +209,6 @@
             // サブウィンドウを表示します
             subWindow.Show();
 
-            // カウントをリセットします
-            MainWindow.finishedCount = 0;
-            MainWindow.totalCount = 10;
-
             // Progressオブジェクトを使うのが工夫です
             IProgress<int> progress = new Progress<int>((percentage) =>
             {
@@ -239,6 +235,11 @@
             asyncFuncList.Add(DoWorkAsync(progress, "仕事7（重い）", 4000));
             asyncFuncList.Add(DoWorkAsync(progress, "仕事8（重い）", 4500));
             asyncFuncList.Add(DoWorkAsync(progress, "仕事9（重い）", 5000));
+            asyncFuncList.Add(DoWorkAsync(progress, "仕事10（重い）", 5500));
+
+            // カウントをリセットします
+            MainWindow.finishedCount = 0;
+            MainWindow.totalCount = asyncFuncList.Count;
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -265,7 +266,7 @@
             // atomic に 1 増やします
             Interlocked.Increment(ref MainWindow.finishedCount);
 
-            var percentage = (MainWindow.finishedCount + 1) * 100 / MainWindow.totalCount;
+            var percentage = MainWindow.finishedCount * 100 / MainWindow.totalCount;
             progress.Report(percentage);
 
             return taskName;
