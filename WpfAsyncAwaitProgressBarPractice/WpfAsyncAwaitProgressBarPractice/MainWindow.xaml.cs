@@ -155,7 +155,7 @@
                 // あとで progress.Report(parcentage); と呼び出すことで実行されます
                 subWindow.progressBar1.Value = percentage;
 
-                // シングルスレッドなので、ちゃんとプログラミングしていれば 100 になるはずです
+                // シングルスレッドなので、ちゃんとプログラミングしていれば 100 になります
                 if (percentage == 100)
                 {
                     // サブウィンドウを閉じます
@@ -220,7 +220,7 @@
                 // あとで progress.Report(parcentage); と呼び出すことで実行されます
                 subWindow.progressBar1.Value = percentage;
 
-                // シングルスレッドなので、ちゃんとプログラミングしていれば 100 になるはずです
+                // マルチスレッドを ちゃんと気を使ったプログラミングをしていれば 100 になります
                 if (percentage == 100)
                 {
                     // サブウィンドウを閉じます
