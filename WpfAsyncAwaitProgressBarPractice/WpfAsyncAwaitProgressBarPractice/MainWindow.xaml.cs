@@ -43,8 +43,8 @@
             const int kTotal = 10;
             for (int i = 0; i < kTotal; i++)
             {
-                // 1秒かかるとします
-                Thread.Sleep(1000);
+                // 1件 0.5 秒かかるとします
+                Thread.Sleep(500);
 
                 progressBar.Value = i * 100 / kTotal;
             }
@@ -95,6 +95,8 @@
 
             // 待機しません
             Task.Run(func);
+
+            // 通り抜けます
         }
 
         /// <summary>
@@ -125,6 +127,63 @@
 
             // 待機しません
             Task.Run(func);
+
+            // 通り抜けます
+        }
+
+        /// <summary>
+        /// [処理４ 同期（動く例）]ボタン押下時
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BadSync4Button_Click(object sender, RoutedEventArgs e)
+        {
+            // サブウィンドウ（プログレスバーが置いてあります）を表示します
+            var subWindow = new ProgressBarWindowView();
+            subWindow.textBlock1.Text = "プログレスバーが動くようになりました";
+
+            // サブウィンドウを表示します
+            subWindow.Show();
+
+            // Progressオブジェクトを使うのが工夫です
+            IProgress<int> progress = new Progress<int>((percentage) =>
+            {
+                // このコードブロックは、 BadSync4Button_Click メソッドと同じスレッドです。
+                // あとで progress.Report(parcentage); と呼び出すことで実行されます
+                subWindow.progressBar1.Value = percentage;
+
+                // シングルスレッドなので、ちゃんとプログラミングしていれば 100 になるはずです
+                if (percentage == 100)
+                {
+                    // サブウィンドウを閉じます
+                    subWindow.Close();
+                }
+            });
+
+            // 中で await を使っているので、 async 修飾子を付ける必要があります
+            var func = async () =>
+            {
+                // このコードブロックの中では UI（ウィンドウとか）に直接アクセスしないのが工夫です
+
+                const int kTotal = 10;
+                for (int i = 0; i < kTotal; i++)
+                {
+                    // 1件 0.5 秒かかるとします
+                    await Task.Delay(500);
+
+                    var parcentage = (i + 1) * 100 / kTotal;
+
+                    // progress オブジェクトを介します
+                    progress.Report(parcentage);
+                }
+
+                return $"処理２ 完了";
+            };
+
+            // 待機しません
+            Task.Run(func);
+
+            // 通り抜けます
         }
     }
 }
