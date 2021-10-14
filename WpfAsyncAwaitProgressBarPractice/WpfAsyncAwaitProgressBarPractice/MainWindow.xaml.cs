@@ -96,5 +96,35 @@
             // 待機しません
             Task.Run(func);
         }
+
+        /// <summary>
+        /// [処理３ 同期（うまく行かない例）]ボタン押下時
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BadSync3Button_Click(object sender, RoutedEventArgs e)
+        {
+            // では サブウィンドウを作ること自体を別スレッドで行えばどうでしょうか？
+
+            var func = () =>
+            {
+                try
+                {
+                    // なんと、ウィンドウを作ること自体できません。 STA エラー
+                    var subWindow = new ProgressBarWindowView();
+                }
+                catch (InvalidOperationException e)
+                {
+                    MessageBox.Show("例外が発生しました", "[処理３ 同期（うまく行かない例）]ボタン押下時", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return $"処理３ 未完了";
+                }
+
+                // ここは通りません
+                return $"処理３ 完了";
+            };
+
+            // 待機しません
+            Task.Run(func);
+        }
     }
 }

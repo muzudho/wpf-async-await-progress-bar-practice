@@ -12,6 +12,8 @@
                 Click="BadSyncButton_Click"/>
         <Button Content="処理２ 同期（うまく行かない例）" Width="270" Height="30" HorizontalContentAlignment="Left"
                 Click="Sync2Button_Click"/>
+        <Button Content="処理３ 同期（うまく行かない例）" Width="270" Height="30" HorizontalContentAlignment="Left"
+                Click="BadSync3Button_Click"/>
 
     </StackPanel>
     
