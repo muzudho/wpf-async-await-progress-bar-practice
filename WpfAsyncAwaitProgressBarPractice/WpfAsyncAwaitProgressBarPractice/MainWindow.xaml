@@ -15,7 +15,9 @@
         <Button Content="処理３ 同期（うまく行かない例）" Width="270" Height="30" HorizontalContentAlignment="Left"
                 Click="BadSync3Button_Click"/>
         <Button Content="処理４ 同期（動く例）" Width="270" Height="30" HorizontalContentAlignment="Left"
-                Click="BadSync4Button_Click"/>
+                Click="Sync4Button_Click"/>
+        <Button Content="処理５ 非同期" Width="270" Height="30" HorizontalContentAlignment="Left"
+                Click="Async5Button_Click"/>
 
     </StackPanel>
     
